@@ -9,6 +9,11 @@ public class LibraryMember {
     private Book currentlyReading;
     private List<Book> finishedBooks = new ArrayList<>();
 
+    public LibraryMember(Long memberId, String name) {
+        this.memberId = memberId;
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }

@@ -5,6 +5,11 @@ public class Book {
     private String title;
     private LibraryMember currentHolder;
 
+    public Book(Long bookId, String title) {
+        this.bookId = bookId;
+        this.title = title;
+    }
+
     public Long getBookId() {
         return bookId;
     }

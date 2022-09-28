@@ -20,7 +20,7 @@ public interface LibraryService {
 
     void deleteLibraryBookByID(Long id);
 
-    void addBookToMember();
+    void addBookToMember(Long memberId, long bookId);
 
-    void removeBookFromReading();
+    void removeBookFromReading(Long memberId, long bookId);
 }

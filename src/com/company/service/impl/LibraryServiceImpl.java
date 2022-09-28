@@ -2,16 +2,14 @@ package com.company.service.impl;
 
 import com.company.dao.Dao;
 import com.company.model.Book;
-import com.company.model.Library;
 import com.company.model.LibraryMember;
 import com.company.service.LibraryService;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
-public class LibraryServiceImpl  implements LibraryService {
+
+public class LibraryServiceImpl implements LibraryService {
     private static final Scanner scannerN = new Scanner(System.in);
     private Dao dao;
 
@@ -21,63 +19,58 @@ public class LibraryServiceImpl  implements LibraryService {
 
     @Override
     public List<LibraryMember> getLibraryMembers() {
-        return getLibraryMembers();
+        return dao.getLibrary().getLibraryMembers();
     }
 
     @Override
     public void addLibraryMember(LibraryMember member) {
-        List<LibraryMember> libraryMember = new ArrayList<>();
-        libraryMember.add(member);
+        dao.getLibrary().getLibraryMembers().add(member);
     }
 
     @Override
     public LibraryMember findLibraryMemberById(Long id) {
-        List<LibraryMember> libraryMembers = new ArrayList<>();
-       List<LibraryMember> libraryMembers1 = libraryMembers.stream().filter(x -> x.getMemberId().equals(id)).collect(Collectors.toList());
-        return libraryMembers1.stream().collect(Collectors.toList();
+        return dao.getLibrary().getLibraryMembers().stream().filter(x -> x.getMemberId() == id).toList().get(0);
     }
 
     @Override
     public void deleteLibraryMemberByID(Long id) {
-        List<LibraryMember> libraryMembers = new ArrayList<>();;
-        libraryMembers.remove(id);
+        LibraryMember m = dao.getLibrary().getLibraryMembers().stream().filter(x -> x.getMemberId() == id).toList().get(0);
+        dao.getLibrary().getLibraryMembers().remove(m);
     }
 
     @Override
     public void addBookToLibrary(Book book) {
-        List<Book> finishedBooks = new ArrayList<>();
-        finishedBooks.add(book);
+        dao.getLibrary().getBooks().add(book);
     }
 
     @Override
     public List<Book> getLibraryBooks() {
-        List<Book> finishedBooks = new ArrayList<>();
-        return finishedBooks;
+        return dao.getLibrary().getBooks();
     }
 
     @Override
     public void deleteLibraryBookByID(Long id) {
-        List<Book> finishedBooks = new ArrayList<>();
-        finishedBooks.remove(id);
+        Book b = dao.getLibrary().getBooks().stream().filter(x -> x.getBookId() == id).toList().get(0);
+        dao.getLibrary().getBooks().remove(b);
     }
 
     @Override
     public Book findLibraryBookById(Long id) {
-        List<Book> finishedBooks = new ArrayList<>();
-        finishedBooks.stream().filter(x -> x.getBookId().equals(id)).collect(Collectors.toList());
-        return findLibraryBookById(id);
+        return dao.getLibrary().getBooks().stream().filter(x -> x.getBookId() == id).toList().get(0);
     }
 
     @Override
-    public void addBookToMember() {
-        List<LibraryMember> libraryMembers = null;
-        libraryMembers.add(new LibraryMember());
+    public void addBookToMember(Long memberId, long bookId) {
+        Book b = findLibraryBookById(bookId);
+        LibraryMember m = findLibraryMemberById(memberId);
+        dao.getLibrary().getLibraryMembers().stream().filter(x -> x.getMemberId().equals(memberId)).toList().get(0).setCurrentlyReading(b);
+        dao.getLibrary().getBooks().stream().filter(x -> x.getBookId().equals(bookId)).toList().get(0).setCurrentHolder(m);
     }
 
     @Override
-    public void removeBookFromReading(){
-        List<Book> finishedBooks = new ArrayList<>();
-        finishedBooks.stream().filter(x->x.getCurrentHolder() != null).collect(Collectors.toList());
-
+    public void removeBookFromReading(Long memberId, long bookId){
+        dao.getLibrary().getLibraryMembers().stream().filter(x -> x.getMemberId().equals(memberId)).toList().get(0).setCurrentlyReading(null);
+        dao.getLibrary().getBooks().stream().filter(x -> x.getBookId().equals(bookId)).toList().get(0).setCurrentHolder(null);
+        dao.getLibrary().getLibraryMembers().stream().filter(x -> x.getMemberId().equals(memberId)).toList();
     }
 }

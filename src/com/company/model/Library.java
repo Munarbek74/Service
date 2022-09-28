@@ -18,7 +18,7 @@ public class Library {
         return books;
     }
 
-    public List<LibraryMember> getLibraryMembers(Long id) {
+    public List<LibraryMember> getLibraryMembers() {
         return libraryMembers;
     }
 
