@@ -26,20 +26,20 @@ public class LibraryServiceImpl  implements LibraryService {
 
     @Override
     public void addLibraryMember(LibraryMember member) {
-        LibraryMember libraryMember = new LibraryMember();
-//        libraryMember.ad
+        List<LibraryMember> libraryMember = new ArrayList<>();
+        libraryMember.add(member);
     }
 
     @Override
     public LibraryMember findLibraryMemberById(Long id) {
-        List<LibraryMember> libraryMembers = null;
-        System.out.println(libraryMembers.stream().filter(x -> x.getMemberId().equals(id)).collect(Collectors.toList()));
-        return null;
+        List<LibraryMember> libraryMembers = new ArrayList<>();
+       List<LibraryMember> libraryMembers1 = libraryMembers.stream().filter(x -> x.getMemberId().equals(id)).collect(Collectors.toList());
+        return libraryMembers1.stream().collect(Collectors.toList();
     }
 
     @Override
     public void deleteLibraryMemberByID(Long id) {
-        List<LibraryMember> libraryMembers = null;
+        List<LibraryMember> libraryMembers = new ArrayList<>();;
         libraryMembers.remove(id);
     }
 
