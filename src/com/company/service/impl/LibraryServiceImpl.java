@@ -21,14 +21,13 @@ public class LibraryServiceImpl  implements LibraryService {
 
     @Override
     public List<LibraryMember> getLibraryMembers() {
-        List<LibraryMember> libraryMembers = null;
-        return libraryMembers;
+        return getLibraryMembers();
     }
 
     @Override
     public void addLibraryMember(LibraryMember member) {
-        List<LibraryMember> libraryMembers = null;
-        libraryMembers.add(member);
+        LibraryMember libraryMember = new LibraryMember();
+//        libraryMember.ad
     }
 
     @Override

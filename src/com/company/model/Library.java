@@ -7,6 +7,8 @@ public class Library {
     private List<Book> books;
     private List<LibraryMember> libraryMembers;
 
+
+
     public Library() {
         this.books = new ArrayList<>();
         this.libraryMembers = new ArrayList<>();
@@ -18,5 +20,13 @@ public class Library {
 
     public List<LibraryMember> getLibraryMembers(Long id) {
         return libraryMembers;
+    }
+
+    @Override
+    public String toString() {
+        return "Library{" +
+                "books=" + books +
+                ", libraryMembers=" + libraryMembers +
+                '}';
     }
 }

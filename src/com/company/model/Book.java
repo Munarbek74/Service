@@ -28,4 +28,13 @@ public class Book {
     public void setCurrentHolder(LibraryMember currentHolder) {
         this.currentHolder = currentHolder;
     }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "bookId=" + bookId +
+                ", title='" + title + '\'' +
+                ", currentHolder=" + currentHolder +
+                '}';
+    }
 }

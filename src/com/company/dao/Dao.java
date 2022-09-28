@@ -10,9 +10,6 @@ public class Dao {
     }
 
 
-    public Dao() {
-
-    }
 
     public Library getLibrary() {
         return library;

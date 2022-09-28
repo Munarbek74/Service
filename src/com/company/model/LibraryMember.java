@@ -46,6 +46,8 @@ public class LibraryMember {
         return "LibraryMember{" +
                 "memberId=" + memberId +
                 ", name='" + name + '\'' +
+                ", currentlyReading=" + currentlyReading +
+                ", finishedBooks=" + finishedBooks +
                 '}';
     }
 }
