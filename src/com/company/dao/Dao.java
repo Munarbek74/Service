@@ -19,4 +19,11 @@ public class Dao {
     public void setLibrary(Library library) {
         this.library = library;
     }
+
+    @Override
+    public String toString() {
+        return "Dao{" +
+                "library=" + library +
+                '}';
+    }
 }
