@@ -69,8 +69,10 @@ public class LibraryServiceImpl implements LibraryService {
 
     @Override
     public void removeBookFromReading(Long memberId, long bookId){
-        dao.getLibrary().getLibraryMembers().stream().filter(x -> x.getMemberId().equals(memberId)).toList().get(0).setCurrentlyReading(null);
-        dao.getLibrary().getBooks().stream().filter(x -> x.getBookId().equals(bookId)).toList().get(0).setCurrentHolder(null);
-        dao.getLibrary().getLibraryMembers().stream().filter(x -> x.getMemberId().equals(memberId)).toList();
+        Book b = findLibraryBookById(bookId);
+        LibraryMember m = findLibraryMemberById(memberId);
+        dao.getLibrary().getLibraryMembers().stream().filter(x -> x.getMemberId() == memberId).toList().get(0).setCurrentlyReading(null);
+        dao.getLibrary().getBooks().stream().filter(x -> x.getBookId() == bookId).toList().get(0).setCurrentHolder(null);
+        dao.getLibrary().getLibraryMembers().stream().filter(x -> x.getMemberId() == memberId).toList().get(0).setFinishedBooks(b);
     }
 }

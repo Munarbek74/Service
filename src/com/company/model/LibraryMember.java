@@ -34,8 +34,8 @@ public class LibraryMember {
         return finishedBooks;
     }
 
-    public void setFinishedBooks(List<Book> finishedBooks) {
-        this.finishedBooks = finishedBooks;
+    public void setFinishedBooks(Book finishedBook) {
+        this.finishedBooks.add(finishedBook);
     }
 
     public Long getMemberId() {
