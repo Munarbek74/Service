@@ -7,6 +7,8 @@ import com.company.service.LibraryService;
 
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 public class LibraryServiceImpl implements LibraryService {
@@ -58,19 +60,50 @@ public class LibraryServiceImpl implements LibraryService {
     public Book findLibraryBookById(Long id) {
         return dao.getLibrary().getBooks().stream().filter(x -> x.getBookId() == id).toList().get(0);
     }
-
     @Override
-    public void addBookToMember(Long memberId, long bookId) {
+    public void addBookToMember(Long memberId, long bookId) throws Exception {
         Book b = findLibraryBookById(bookId);
-        LibraryMember m = findLibraryMemberById(memberId);
-        if (dao.getLibrary().getBooks().stream().filter(x -> x.getBookId().equals(bookId)).count() < 1)
+
+        if (b.getCurrentHolder() == null) {
+            LibraryMember m = findLibraryMemberById(memberId);
+             dao.getLibrary().getLibraryMembers().stream().filter(x -> x.getMemberId() == memberId).toList().get(0).setCurrentlyReading(b);
             dao.getLibrary().getBooks().stream().filter(x -> x.getBookId() == bookId).toList().get(0).setCurrentHolder(m);
-
-        if (dao.getLibrary().getLibraryMembers().stream().filter(x -> x.getMemberId().equals(memberId)).count() < 1)
-            dao.getLibrary().getLibraryMembers().stream().filter(x -> x.getMemberId() == memberId).toList().get(0).setCurrentlyReading(b);
-
+        } else {
+            throw new Exception(b.getCurrentHolder().getName() + " is reading this book");
+        }
     }
-
+//    @Override
+//    public void addBookToMember(Long memberId, long bookId) {
+//        Book b = findLibraryBookById(bookId);
+//        LibraryMember m = findLibraryMemberById(memberId);
+//        Stream<Object> a = dao.getLibrary().getBooks().stream().map(x -> x.getCurrentHolder().getMemberId());
+//        Stream<Object> c = dao.getLibrary().getLibraryMembers().stream().map(x -> x.getCurrentlyReading().getBookId());
+////        dao.getLibrary().getLibraryMembers().stream().filter(x -> x.getMemberId() == memberId).toList().get(0).setCurrentlyReading(b);
+//        dao.getLibrary().getBooks().stream().filter(x -> x.getBookId() == bookId).toList().get(0).setCurrentHolder(m);
+//        System.out.println(dao.getLibrary().getBooks().stream().map(x -> x.getCurrentHolder().getMemberId()).collect(Collectors.toList()));
+//
+//        dao.getLibrary().getBooks().stream().map(x -> {
+//            if (x.getCurrentHolder().getMemberId() != memberId) {
+//                dao.getLibrary().getLibraryMembers().stream().filter(y -> y.getMemberId() == memberId).toList().get(0).setCurrentlyReading(b);
+//            }
+//            return x;
+//
+//        }).collect(Collectors.toList());
+//        System.out.println(dao);
+//    }
+//
+//
+//        if (c != null) {
+//        if (dao.getLibrary().getLibraryMembers().get(0).getCurrentlyReading().getBookId() == bookId) {
+//                System.out.println("Книга не свободна");
+//            } else {
+//            dao.getLibrary().getLibraryMembers().stream().filter(x -> x.getMemberId() == memberId).toList().get(0).setCurrentlyReading(b);
+//            }
+//        } else {
+//            dao.getLibrary().getLibraryMembers().stream().filter(x -> x.getMemberId() == memberId).toList().get(0).setCurrentlyReading(b);
+//        }
+//        }
+//    }
     @Override
     public void removeBookFromReading(Long memberId, long bookId){
         Book b = findLibraryBookById(bookId);

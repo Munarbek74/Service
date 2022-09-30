@@ -20,7 +20,7 @@ public interface LibraryService {
 
     void deleteLibraryBookByID(Long id);
 
-    void addBookToMember(Long memberId, long bookId);
+    void addBookToMember(Long memberId, long bookId) throws Exception;
 
     void removeBookFromReading(Long memberId, long bookId);
 }

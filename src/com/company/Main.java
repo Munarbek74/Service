@@ -7,6 +7,7 @@ import com.company.model.LibraryMember;
 import com.company.service.impl.LibraryServiceImpl;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -14,7 +15,7 @@ import java.util.Scanner;
         public class Main {
             static Scanner scannerN = new Scanner(System.in);
             static Scanner scannerS = new Scanner(System.in);
-            public static void main(String[] args) {
+            public static void main(String[] args) throws Exception {
                 Dao dao = new Dao(new Library());
                 LibraryServiceImpl libraryService = new LibraryServiceImpl(dao);
                 //buttons();
@@ -61,7 +62,9 @@ import java.util.Scanner;
                         Long memberId = scannerN.nextLong();
                         System.out.print("Input Book's id: ");
                         Long bookId = scannerN.nextLong();
-                        libraryService.addBookToMember(memberId, bookId);
+
+                libraryService.addBookToMember(memberId, bookId);
+
                     } else if (a.equals("10")) {
                         System.out.print("Input LibraryMember's id: ");
                         Long memberId = scannerN.nextLong();
