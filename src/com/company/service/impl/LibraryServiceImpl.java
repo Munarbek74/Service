@@ -61,11 +61,14 @@ public class LibraryServiceImpl implements LibraryService {
 
     @Override
     public void addBookToMember(Long memberId, long bookId) {
-        Book b = dao.getLibrary().getBooks().stream().filter(x -> x.getBookId().equals(bookId)).toList().get(0);
+        Book b = findLibraryBookById(bookId);
         LibraryMember m = findLibraryMemberById(memberId);
-        dao.getLibrary().getBooks().stream().filter(x -> x.getBookId() == bookId).toList().get(0).setCurrentHolder(m);
-        dao.getLibrary().getLibraryMembers().stream().filter(y -> y.getMemberId() == memberId).toList().get(0).setCurrentlyReading(b);
-        System.out.println(dao);
+        if (dao.getLibrary().getBooks().stream().filter(x -> x.getBookId().equals(bookId)).count() < 1)
+            dao.getLibrary().getBooks().stream().filter(x -> x.getBookId() == bookId).toList().get(0).setCurrentHolder(m);
+
+        if (dao.getLibrary().getLibraryMembers().stream().filter(x -> x.getMemberId().equals(memberId)).count() < 1)
+            dao.getLibrary().getLibraryMembers().stream().filter(x -> x.getMemberId() == memberId).toList().get(0).setCurrentlyReading(b);
+
     }
 
     @Override
@@ -74,6 +77,6 @@ public class LibraryServiceImpl implements LibraryService {
         dao.getLibrary().getLibraryMembers().stream().filter(x -> x.getMemberId() == memberId).toList().get(0).setCurrentlyReading(null);
         dao.getLibrary().getBooks().stream().filter(x -> x.getBookId() == bookId).toList().get(0).setCurrentHolder(null);
         dao.getLibrary().getLibraryMembers().stream().filter(x -> x.getMemberId() == memberId).toList().get(0).setFinishedBooks(b);
-        System.out.println(dao);
+
     }
 }
