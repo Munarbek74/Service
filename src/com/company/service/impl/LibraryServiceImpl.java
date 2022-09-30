@@ -61,21 +61,21 @@ public class LibraryServiceImpl implements LibraryService {
         return dao.getLibrary().getBooks().stream().filter(x -> x.getBookId() == id).toList().get(0);
     }
     @Override
-    public void addBookToMember(Long memberId, long bookId) throws Exception {
+    public void addBookToMember(Long memberId, long bookId) {
         Book b = findLibraryBookById(bookId);
 
-        if (b.getCurrentHolder() == null) {
-            LibraryMember m = findLibraryMemberById(memberId);
-             dao.getLibrary().getLibraryMembers().stream().filter(x -> x.getMemberId() == memberId).toList().get(0).setCurrentlyReading(b);
-            dao.getLibrary().getBooks().stream().filter(x -> x.getBookId() == bookId).toList().get(0).setCurrentHolder(m);
-        } else {
-            try {
-                throw new Exception(b.getCurrentHolder().getName() + " is reading this book");
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+            if (b.getCurrentHolder() == null) {
+
+                LibraryMember m = findLibraryMemberById(memberId);
+                dao.getLibrary().getLibraryMembers().stream().filter(x -> x.getMemberId() == memberId).toList().get(0).setCurrentlyReading(b);
+                dao.getLibrary().getBooks().stream().filter(x -> x.getBookId() == bookId).toList().get(0).setCurrentHolder(m);
+            } else {
+
+                System.out.println(b.getCurrentHolder().getName() + " is reading this book");
+
             }
         }
-    }
+
     @Override
     public void removeBookFromReading(Long memberId, long bookId){
         Book b = findLibraryBookById(bookId);

@@ -15,7 +15,7 @@ import java.util.Scanner;
         public class Main {
             static Scanner scannerN = new Scanner(System.in);
             static Scanner scannerS = new Scanner(System.in);
-            public static void main(String[] args) throws Exception {
+            public static void main(String[] args)  {
                 Dao dao = new Dao(new Library());
                 LibraryServiceImpl libraryService = new LibraryServiceImpl(dao);
                 //buttons();
@@ -62,9 +62,12 @@ import java.util.Scanner;
                         Long memberId = scannerN.nextLong();
                         System.out.print("Input Book's id: ");
                         Long bookId = scannerN.nextLong();
-
-                libraryService.addBookToMember(memberId, bookId);
-
+                        try {
+                            libraryService.addBookToMember(memberId, bookId);
+                        } catch (ArrayIndexOutOfBoundsException e) {
+                            System.out.println("The index you have entered is invalid");
+                            System.out.println("Please enter an index new number");
+                        }
                     } else if (a.equals("10")) {
                         System.out.print("Input LibraryMember's id: ");
                         Long memberId = scannerN.nextLong();
