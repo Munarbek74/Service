@@ -65,14 +65,11 @@ public class LibraryServiceImpl implements LibraryService {
         Book b = findLibraryBookById(bookId);
 
             if (b.getCurrentHolder() == null) {
-
                 LibraryMember m = findLibraryMemberById(memberId);
                 dao.getLibrary().getLibraryMembers().stream().filter(x -> x.getMemberId() == memberId).toList().get(0).setCurrentlyReading(b);
                 dao.getLibrary().getBooks().stream().filter(x -> x.getBookId() == bookId).toList().get(0).setCurrentHolder(m);
             } else {
-
                 System.out.println(b.getCurrentHolder().getName() + " is reading this book");
-
             }
         }
 

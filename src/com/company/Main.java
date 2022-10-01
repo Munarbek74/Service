@@ -4,10 +4,14 @@ import com.company.dao.Dao;
 import com.company.model.Book;
 import com.company.model.Library;
 import com.company.model.LibraryMember;
+import com.company.model.SimpleForm;
 import com.company.service.impl.LibraryServiceImpl;
 
 
+import javax.swing.*;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -16,6 +20,13 @@ import java.util.Scanner;
             static Scanner scannerN = new Scanner(System.in);
             static Scanner scannerS = new Scanner(System.in);
             public static void main(String[] args)  {
+
+                SimpleForm simpleForm = new SimpleForm("Книжный клуб");
+                simpleForm.setVisible(true);
+                simpleForm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                simpleForm.setSize(600, 400);
+                simpleForm.setResizable(false);
+                simpleForm.setLocationRelativeTo(null);
                 Dao dao = new Dao(new Library());
                 LibraryServiceImpl libraryService = new LibraryServiceImpl(dao);
                 //buttons();
@@ -79,6 +90,7 @@ import java.util.Scanner;
             }
 
             public static void buttons(){
+
                 System.out.println("<><><><><><><><><><><><><><><><><><><><><><><><><><><><>");
                 System.out.println("Нажмите 1, чтобы добавить нового участника в библиотеку.");
                 System.out.println("Нажмите 2, чтобы увидеть всех участников библиотеки.");
